@@ -4,8 +4,7 @@
   "description": "",
   "scripts": {
     "start": "http-server -p 5000",
-    "doc": "jsdoc -c jsdoc.json",
-    "start:docs": "http-server docs -p 8000"
+    "doc": "jsdoc -c jsdoc.json"
   },
   "author": "Dihan Vermeulen",
   "license": "ISC",
