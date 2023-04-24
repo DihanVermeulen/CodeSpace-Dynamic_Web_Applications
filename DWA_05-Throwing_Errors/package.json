@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "http-server",
-    "doc": "jsdoc -c jsdoc.json"
+    "start": "http-server -p 5000",
+    "doc": "jsdoc -c jsdoc.json",
+    "start:docs": "http-server docs -p 8000"
   },
   "author": "Dihan Vermeulen",
   "license": "ISC",
