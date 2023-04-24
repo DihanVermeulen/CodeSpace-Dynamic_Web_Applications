@@ -29,7 +29,12 @@ form.addEventListener("submit", (event) => {
   // @ts-ignore
   const entries = new FormData(event.target);
 
+  /**
+   * Form data object
+   */
   const formData = {};
+
+  // Populates formData with entries
   for (const [key, value] of entries.entries()) {
     formData[key] = value;
   }
@@ -38,7 +43,8 @@ form.addEventListener("submit", (event) => {
 
   if (!result) throw new Error();
 
-  /* Checks if both values are present, and if not an error message
+  /*
+   * Checks if both values are present, and if not an error message
    * is shown
    */
   if (!dividend || !divider) {
