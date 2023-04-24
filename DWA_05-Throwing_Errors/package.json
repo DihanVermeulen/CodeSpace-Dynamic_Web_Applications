@@ -1,15 +1,16 @@
 {
-    "name": "jsdoc",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "scripts": {
-      "doc": "jsdoc -c jsdoc.json"
-    },
-    "author": "",
-    "license": "ISC",
-    "devDependencies": {
-      "jsdoc": "^4.0.2"
-    }
+  "name": "jsdoc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server",
+    "doc": "jsdoc -c jsdoc.json"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "jsdoc": "^4.0.2"
   }
-  
+}
