@@ -6,7 +6,7 @@
     "start": "http-server",
     "doc": "jsdoc -c jsdoc.json"
   },
-  "author": "",
+  "author": "Dihan Vermeulen",
   "license": "ISC",
   "devDependencies": {
     "http-server": "^14.1.1",
