@@ -13,8 +13,6 @@
   "opts": {
     "recurse": true,
     "destination": "./docs/",
-    "template": "docs-template",
-    "tutorials": "tutorials",
     "readme": "README.md"
   }
 }
