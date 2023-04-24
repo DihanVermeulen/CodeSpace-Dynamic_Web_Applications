@@ -1,8 +1,7 @@
 {
-  "name": "jsdoc",
+  "name": "dwa_05-throwing-errors",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "start": "http-server",
     "doc": "jsdoc -c jsdoc.json"
