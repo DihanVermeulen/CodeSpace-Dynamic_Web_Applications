@@ -1,12 +1,12 @@
 // @ts-check
 
 /**
- * Form from html
- * @type {Element | null}
+ * Form where data comes from
+ * @type {HTMLFormElement | null}
  */
 const form = document.querySelector("[data-form]");
 /**
- * Div element from html
+ * Div element where result is displayed
  * @type {HTMLDivElement | null}
  */
 const result = document.querySelector("[data-result]");
