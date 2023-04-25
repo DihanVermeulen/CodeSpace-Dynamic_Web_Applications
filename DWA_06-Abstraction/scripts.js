@@ -69,8 +69,9 @@ v = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
 documentElement.style.setProperty('--color-dark', css[v].dark);
 documentElement.style.setProperty('--color-light', css[v].light);
 data-list-button = "Show more (books.length - BOOKS_PER_PAGE)"
+const dataListButton = "Show more (books.length - BOOKS_PER_PAGE)";
 
-data-list-button.disabled = !(matches.length - [page * BOOKS_PER_PAGE] > 0)
+dataListButton.disabled = !(matches.length - [page * BOOKS_PER_PAGE] > 0)
 
 data-list-button.innerHTML = /* html */ [
     '<span>Show more</span>',
