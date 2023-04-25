@@ -1,6 +1,6 @@
 import {
   books, authors, genres, BOOKS_PER_PAGE,
-} from './data.js';
+} from './data';
 
 let page = 1;
 let matches = books;
@@ -132,8 +132,8 @@ document.querySelector('[data-search-form]').addEventListener('submit', (event) 
 
     if (
       (filters.title.trim() === '' || book.title.toLowerCase().includes(filters.title.toLowerCase()))
-            && (filters.author === 'any' || book.author === filters.author)
-            && genreMatch
+      && (filters.author === 'any' || book.author === filters.author)
+      && genreMatch
     ) {
       result.push(book);
     }
