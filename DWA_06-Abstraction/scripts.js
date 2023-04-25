@@ -5,25 +5,25 @@ let matches = books;
 
 const starting = document.createDocumentFragment();
 
-for (const { author, id, image, title } of matches.slice(0, BOOKS_PER_PAGE)) {
+matches.slice(0, BOOKS_PER_PAGE).forEach(({ author, id, image, title }) => {
   const element = document.createElement("button");
   element.classList = "preview";
   element.setAttribute("data-preview", id);
 
   element.innerHTML = `
-        <img
-            class="preview__image"
-            src="${image}"
-        />
-        
-        <div class="preview__info">
-            <h3 class="preview__title">${title}</h3>
-            <div class="preview__author">${authors[author]}</div>
-        </div>
-    `;
+    <img
+      class="preview__image"
+      src="${image}"
+    />
+
+    <div class="preview__info">
+      <h3 class="preview__title">${title}</h3>
+      <div class="preview__author">${authors[author]}</div>
+    </div>
+  `;
 
   starting.appendChild(element);
-}
+});
 
 document.querySelector("[data-list-items]").appendChild(starting);
 
@@ -33,12 +33,12 @@ firstGenreElement.value = "any";
 firstGenreElement.innerText = "All Genres";
 genreHtml.appendChild(firstGenreElement);
 
-for (const [id, name] of Object.entries(genres)) {
+Object.entries(genres).forEach((id, name) => {
   const element = document.createElement("option");
   element.value = id;
   element.innerText = name;
   genreHtml.appendChild(element);
-}
+});
 
 document.querySelector("[data-search-genres]").appendChild(genreHtml);
 
@@ -48,12 +48,12 @@ firstAuthorElement.value = "any";
 firstAuthorElement.innerText = "All Authors";
 authorsHtml.appendChild(firstAuthorElement);
 
-for (const [id, name] of Object.entries(authors)) {
+Object.entries(authors).forEach(([id, name]) => {
   const element = document.createElement("option");
   element.value = id;
   element.innerText = name;
   authorsHtml.appendChild(element);
-}
+});
 
 document.querySelector("[data-search-authors]").appendChild(authorsHtml);
 
@@ -61,7 +61,6 @@ if (
   window.matchMedia &&
   window.matchMedia("(prefers-color-scheme: dark)").matches
 ) {
-  console.log(document.documentElement);
   document.querySelector("[data-settings-theme]").value = "night";
   document.documentElement.style.setProperty("--color-dark", "255, 255, 255");
   document.documentElement.style.setProperty("--color-light", "10, 10, 20");
@@ -143,23 +142,6 @@ document
     const filters = Object.fromEntries(formData);
     const result = [];
 
-    // for (const book of books) {
-    //   let genreMatch = filters.genre === 'any';
-
-    //   for (const singleGenre of book.genres) {
-    //     if (genreMatch) break;
-    //     if (singleGenre === filters.genre) { genreMatch = true; }
-    //   }
-
-    //   if (
-    //     (filters.title.trim() === '' || book.title.toLowerCase().includes(filters.title.toLowerCase()))
-    //     && (filters.author === 'any' || book.author === filters.author)
-    //     && genreMatch
-    //   ) {
-    //     result.push(book);
-    //   }
-    // }
-
     result.push(
       books.filter((book) => {
         const genreMatch =
@@ -190,10 +172,7 @@ document
     document.querySelector("[data-list-items]").innerHTML = "";
     const newItems = document.createDocumentFragment();
 
-    for (const { author, id, image, title } of result.slice(
-      0,
-      BOOKS_PER_PAGE
-    )) {
+    result.slice(0, BOOKS_PER_PAGE).forEach(({ author, id, image, title }) => {
       const element = document.createElement("button");
       element.classList = "preview";
       element.setAttribute("data-preview", id);
@@ -211,7 +190,7 @@ document
         `;
 
       newItems.appendChild(element);
-    }
+    });
 
     document.querySelector("[data-list-items]").appendChild(newItems);
     document.querySelector("[data-list-button]").disabled =
@@ -233,15 +212,14 @@ document
 document.querySelector("[data-list-button]").addEventListener("click", () => {
   const fragment = document.createDocumentFragment();
 
-  for (const { author, id, image, title } of matches.slice(
-    page * BOOKS_PER_PAGE,
-    (page + 1) * BOOKS_PER_PAGE
-  )) {
-    const element = document.createElement("button");
-    element.classList = "preview";
-    element.setAttribute("data-preview", id);
+  matches
+    .slice(page * BOOKS_PER_PAGE, (page + 1) * BOOKS_PER_PAGE)
+    .forEach(({ author, id, image, title }) => {
+      const element = document.createElement("button");
+      element.classList = "preview";
+      element.setAttribute("data-preview", id);
 
-    element.innerHTML = `
+      element.innerHTML = `
             <img
                 class="preview__image"
                 src="${image}"
@@ -253,8 +231,8 @@ document.querySelector("[data-list-button]").addEventListener("click", () => {
             </div>
         `;
 
-    fragment.appendChild(element);
-  }
+      fragment.appendChild(element);
+    });
 
   document.querySelector("[data-list-items]").appendChild(fragment);
   page += 1;
@@ -266,20 +244,19 @@ document
     const pathArray = Array.from(event.path || event.composedPath());
     let active = null;
 
-    for (const node of pathArray) {
-      if (active) break;
+    pathArray.forEach((node) => {
+      if (active) return;
 
       if (node?.dataset?.preview) {
         let result = null;
-
-        for (const singleBook of books) {
-          if (result) break;
+        books.forEach((singleBook) => {
+          if (result) return;
           if (singleBook.id === node?.dataset?.preview) result = singleBook;
-        }
+        });
 
         active = result;
       }
-    }
+    });
 
     if (active) {
       document.querySelector("[data-list-active]").open = true;
