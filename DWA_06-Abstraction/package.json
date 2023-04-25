@@ -9,7 +9,9 @@
   "author": "Dihan Vermeulen",
   "license": "ISC",
   "devDependencies": {
-    "eslint": "^8.39.0",
+    "eslint": "^8.2.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.25.3",
     "http-server": "^14.1.1"
   }
 }
