@@ -1,11 +1,32 @@
-import { books, authors, genres, BOOKS_PER_PAGE } from "./data";
+// eslint-disable-next-line import/extensions
+import { books, authors, genres, BOOKS_PER_PAGE } from "./src/data.js";
 
 let page = 1;
 let matches = books;
 
 const starting = document.createDocumentFragment();
 
-matches.slice(0, BOOKS_PER_PAGE).forEach(({ author, id, image, title }) => {
+/*
+ * Here I put this piece of code that creates a button inside of a function so
+ * that it can be reused
+ */
+
+/**
+ * Creates a button element out of the author, id, image and title
+ * of a book
+ * @type {() => string} - Function that returns string
+ * @returns {string} - HTML for button element
+ * @param {{id: string, image: string, title: string, authors: Object<string>, author:string}} args - arguments
+ */
+const createButtonElement = (...args) => {
+  const {
+    image,
+    id,
+    title,
+    authors: createButtonElementAuthors,
+    author,
+  } = args[0];
+
   const element = document.createElement("button");
   element.classList = "preview";
   element.setAttribute("data-preview", id);
@@ -18,11 +39,17 @@ matches.slice(0, BOOKS_PER_PAGE).forEach(({ author, id, image, title }) => {
 
     <div class="preview__info">
       <h3 class="preview__title">${title}</h3>
-      <div class="preview__author">${authors[author]}</div>
+      <div class="preview__author">${createButtonElementAuthors[author]}</div>
     </div>
   `;
 
-  starting.appendChild(element);
+  return element;
+};
+
+matches.slice(0, BOOKS_PER_PAGE).forEach(({ author, id, image, title }) => {
+  starting.appendChild(
+    createButtonElement({ author, id, image, title, authors })
+  );
 });
 
 document.querySelector("[data-list-items]").appendChild(starting);
