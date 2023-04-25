@@ -1,0 +1,14 @@
+{
+  "name": "dwa_06-abstraction",
+  "version": "1.0.0",
+  "description": "Abstraction challenge in CodeSpace Academy DWA module",
+  "main": "scripts.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dihan Vermeulen",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.39.0"
+  }
+}
