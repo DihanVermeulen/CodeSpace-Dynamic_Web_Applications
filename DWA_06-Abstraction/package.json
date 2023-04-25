@@ -5,8 +5,8 @@
   "main": "scripts.js",
   "scripts": {
     "start": "http-server -p 5000",
-    "lint": "eslint",
-    "lint:fix": "eslint --fix"
+    "lint": "eslint **/*.js",
+    "lint:fix": "eslint --fix **/*.js"
   },
   "author": "Dihan Vermeulen",
   "license": "ISC",
