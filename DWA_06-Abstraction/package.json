@@ -4,11 +4,12 @@
   "description": "Abstraction challenge in CodeSpace Academy DWA module",
   "main": "scripts.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": ""
   },
   "author": "Dihan Vermeulen",
   "license": "ISC",
   "devDependencies": {
-    "eslint": "^8.39.0"
+    "eslint": "^8.39.0",
+    "http-server": "^14.1.1"
   }
 }
