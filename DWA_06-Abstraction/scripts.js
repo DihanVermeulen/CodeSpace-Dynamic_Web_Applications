@@ -7,7 +7,7 @@ let matches = books;
 const starting = document.createDocumentFragment();
 
 /*
- * Here I put this piece of code that creates a button inside of a function so
+ * Here I refactored this piece of code that creates a button inside of a function so
  * that it can be reused
  */
 
@@ -15,7 +15,7 @@ const starting = document.createDocumentFragment();
  * Creates a button element out of the author, id, image and title
  * of a book
  * @type {() => string} - Function that returns string
- * @returns {string} - HTML for button element
+ * @returns {HTMLButtonElement} - HTML for button element
  * @param {{id: string, image: string, title: string, authors: Object<string>, author:string}} args - arguments
  */
 const createButtonElement = (...args) => {
@@ -46,6 +46,7 @@ const createButtonElement = (...args) => {
   return element;
 };
 
+// Creates button elements and appends to list-items
 matches.slice(0, BOOKS_PER_PAGE).forEach(({ author, id, image, title }) => {
   starting.appendChild(
     createButtonElement({ author, id, image, title, authors })
@@ -111,6 +112,7 @@ const colorLight = prefersDarkMode ? "10, 10, 20" : "255, 255, 255";
 
 dataSettingsTheme.value = prefersDarkMode ? "night" : "day";
 document.documentElement.style.setProperty("--color-dark", colorDark);
+document.documentElement.style.setProperty("--color-light", colorLight);
 
 document.querySelector("[data-list-button]").innerText = `Show more (${
   books.length - BOOKS_PER_PAGE
