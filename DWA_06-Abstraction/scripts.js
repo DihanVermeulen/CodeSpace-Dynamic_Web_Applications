@@ -51,16 +51,11 @@ matches.slice(0, BOOKS_PER_PAGE).forEach(({ author, id, image, title }) => {
     createButtonElement({ author, id, image, title, authors })
   );
 });
-
 document.querySelector("[data-list-items]").appendChild(starting);
 
-const genreHtml = document.createDocumentFragment();
-const firstGenreElement = document.createElement("option");
-firstGenreElement.value = "any";
-firstGenreElement.innerText = "All Genres";
-genreHtml.appendChild(firstGenreElement);
+// ================================================
 
-Object.entries(genres).forEach((id, name) => {
+/* Refactored this part to create the option Html inside of a function */
 const createOptionHtml = (value, innerText) => {
   const Html = document.createDocumentFragment();
   const firstElement = document.createElement("option");
@@ -86,6 +81,10 @@ const createOptionElement = (id, name) => {
   return element;
 };
 
+// Creates option element and appends to search-genres list
+Object.entries(genres).forEach((id, name) => {
+  genreHtml.appendChild(createOptionElement(id, name));
+});
 document.querySelector("[data-search-genres]").appendChild(genreHtml);
 
 const authorsHtml = document.createDocumentFragment();
