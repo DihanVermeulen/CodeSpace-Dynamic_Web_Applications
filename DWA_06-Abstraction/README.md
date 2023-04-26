@@ -4,6 +4,12 @@ This DWA_06 challenge challenges our abilities to use abstraction in our code, t
 
 ## Run locally
 
+Install dependencies
+
+```bash
+npm i
+```
+
 To run this project locally
 
 ```bash
