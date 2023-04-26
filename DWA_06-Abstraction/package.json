@@ -4,7 +4,7 @@
   "description": "Abstraction challenge in CodeSpace Academy DWA module",
   "main": "scripts.js",
   "scripts": {
-    "start": "http-server ./",
+    "start": "live-server --port=5000",
     "lint": "eslint **/*.js",
     "lint:fix": "eslint --fix **/*.js"
   },
@@ -17,7 +17,6 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-prettier": "^4.2.1",
-    "http-server": "^14.1.1",
     "prettier": "^2.8.8"
   }
 }
