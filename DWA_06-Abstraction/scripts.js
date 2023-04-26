@@ -97,18 +97,20 @@ Object.entries(authors).forEach(([id, name]) => {
 });
 document.querySelector("[data-search-authors]").appendChild(authorsHtml);
 
-if (
+/*
+ * Changed this part to use ternary operators
+ * Changes colour theme of app
+ */
+const prefersDarkMode =
   window.matchMedia &&
-  window.matchMedia("(prefers-color-scheme: dark)").matches
-) {
-  document.querySelector("[data-settings-theme]").value = "night";
-  document.documentElement.style.setProperty("--color-dark", "255, 255, 255");
-  document.documentElement.style.setProperty("--color-light", "10, 10, 20");
-} else {
-  document.querySelector("[data-settings-theme]").value = "day";
-  document.documentElement.style.setProperty("--color-dark", "10, 10, 20");
-  document.documentElement.style.setProperty("--color-light", "255, 255, 255");
-}
+  window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+const dataSettingsTheme = document.querySelector("[data-settings-theme]");
+const colorDark = prefersDarkMode ? "255, 255, 255" : "10, 10, 20";
+const colorLight = prefersDarkMode ? "10, 10, 20" : "255, 255, 255";
+
+dataSettingsTheme.value = prefersDarkMode ? "night" : "day";
+document.documentElement.style.setProperty("--color-dark", colorDark);
 
 document.querySelector("[data-list-button]").innerText = `Show more (${
   books.length - BOOKS_PER_PAGE
