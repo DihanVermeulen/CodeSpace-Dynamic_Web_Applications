@@ -61,6 +61,18 @@ firstGenreElement.innerText = "All Genres";
 genreHtml.appendChild(firstGenreElement);
 
 Object.entries(genres).forEach((id, name) => {
+const createOptionHtml = (value, innerText) => {
+  const Html = document.createDocumentFragment();
+  const firstElement = document.createElement("option");
+  firstElement.value = value;
+  firstElement.innerText = innerText;
+  Html.appendChild(firstElement);
+
+  return Html;
+};
+
+const genreHtml = createOptionHtml("any", "All Genres");
+
   const element = document.createElement("option");
   element.value = id;
   element.innerText = name;
