@@ -87,19 +87,14 @@ Object.entries(genres).forEach((id, name) => {
 });
 document.querySelector("[data-search-genres]").appendChild(genreHtml);
 
-const authorsHtml = document.createDocumentFragment();
-const firstAuthorElement = document.createElement("option");
-firstAuthorElement.value = "any";
-firstAuthorElement.innerText = "All Authors";
-authorsHtml.appendChild(firstAuthorElement);
+// =====================================================
 
+const authorsHtml = createOptionHtml("any", "All Authors");
+
+// Creates option element and appends to search-authors list
 Object.entries(authors).forEach(([id, name]) => {
-  const element = document.createElement("option");
-  element.value = id;
-  element.innerText = name;
-  authorsHtml.appendChild(element);
+  authorsHtml.appendChild(createOptionElement(id, name));
 });
-
 document.querySelector("[data-search-authors]").appendChild(authorsHtml);
 
 if (
