@@ -1,3 +1,5 @@
+// @ts-check
+
 // eslint-disable-next-line import/extensions
 import { books, authors, genres, BOOKS_PER_PAGE } from "./src/data.js";
 
