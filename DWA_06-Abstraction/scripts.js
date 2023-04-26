@@ -6,6 +6,15 @@ import { books, authors, genres, BOOKS_PER_PAGE } from "./src/data.js";
 let page = 1;
 let matches = books;
 
+/**
+ * Toggles the overlay based on the state passed in
+ * @param {string} selector
+ * @param {boolean} state
+ */
+const toggleOverlay = (selector, state) => {
+  document.querySelector(selector).open = state;
+};
+
 const starting = document.createDocumentFragment();
 
 /*
