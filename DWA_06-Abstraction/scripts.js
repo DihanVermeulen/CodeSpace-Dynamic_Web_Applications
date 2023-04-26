@@ -14,21 +14,17 @@ const starting = document.createDocumentFragment();
  */
 
 /**
- * Creates a button element out of the author, id, image and title
- * of a book
- * @type {() => string} - Function that returns string
- * @returns {HTMLButtonElement} - HTML for button element
- * @param {{id: string, image: string, title: string, authors: Object<string>, author:string}} args - arguments
+ * Creates a button element with the specified properties.
+ *
+ * @param {Object} props - The properties of the button element.
+ * @param {string} props.image - The image source URL of the button.
+ * @param {string} props.author - The index of the author in the authors array.
+ * @param {string} props.id - The ID of the button.
+ * @param {Object} props.authors - An object containing the names of the authors.
+ * @param {string} props.title - The title of the button.
+ * @returns {HTMLElement} The created button element.
  */
-const createButtonElement = (...args) => {
-  const {
-    image,
-    id,
-    title,
-    authors: createButtonElementAuthors,
-    author,
-  } = args[0];
-
+const createButtonElement = ({ image, author, id, authors, title }) => {
   const element = document.createElement("button");
   element.classList = "preview";
   element.setAttribute("data-preview", id);
@@ -41,7 +37,7 @@ const createButtonElement = (...args) => {
 
     <div class="preview__info">
       <h3 class="preview__title">${title}</h3>
-      <div class="preview__author">${createButtonElementAuthors[author]}</div>
+      <div class="preview__author">${authors[author]}</div>
     </div>
   `;
 
