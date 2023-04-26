@@ -73,11 +73,18 @@ const createOptionHtml = (value, innerText) => {
 
 const genreHtml = createOptionHtml("any", "All Genres");
 
+/**
+ * Creates an option element
+ * @param {string} id - ID of option
+ * @param {string} name - Name of option
+ * @returns {HTMLOptionElement} - Option element
+ */
+const createOptionElement = (id, name) => {
   const element = document.createElement("option");
   element.value = id;
   element.innerText = name;
-  genreHtml.appendChild(element);
-});
+  return element;
+};
 
 document.querySelector("[data-search-genres]").appendChild(genreHtml);
 
