@@ -78,7 +78,7 @@ const createButtonElement = ({ image, author, id, authors, title }) => {
 
     <div class="preview__info">
       <h3 class="preview__title">${title}</h3>
-      <div class="preview__author">${authors[author]}</div>
+      <div class="preview__author">${createButtonElementAuthors[author]}</div>
     </div>
   `;
 
