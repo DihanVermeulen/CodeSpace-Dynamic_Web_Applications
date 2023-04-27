@@ -193,20 +193,32 @@ document
     document.querySelector("[data-settings-overlay]").open = false;
   });
 
-document.querySelector("[data-header-search]").addEventListener("click", () => {
-  document.querySelector("[data-search-overlay]").open = true;
-  document.querySelector("[data-search-title]").focus();
-});
-
 document
-  .querySelector("[data-header-settings]")
+  .querySelector(elementSelectors.settings.settingsCancel)
   .addEventListener("click", () => {
-    document.querySelector("[data-settings-overlay]").open = true;
+    toggleOverlay(elementSelectors.settings.settingsOverlay, false);
   });
 
-document.querySelector("[data-list-close]").addEventListener("click", () => {
-  document.querySelector("[data-list-active]").open = false;
-});
+document
+  .querySelector(elementSelectors.header.headerSearch)
+  .addEventListener("click", () => {
+    document.querySelector(elementSelectors.search.searchOverlay).open = true;
+    document.querySelector(elementSelectors.search.searchTitle).focus();
+  });
+
+document
+  .querySelector(elementSelectors.header.headerSettings)
+  .addEventListener("click", () => {
+    document.querySelector(elementSelectors.search.searchOverlay).open = true;
+  });
+
+document
+  .querySelector(elementSelectors.list.listClose)
+  .addEventListener("click", () => {
+    document.querySelector(elementSelectors.list.listActive).open = false;
+  });
+
+/* Here I refactored the onSubmit event to be inside of a function */
 
 /**
  * Handles submit event of settings form to change the
@@ -233,48 +245,106 @@ const handleSubmitSettingsForm = (event) => {
 };
 
 document
-  .querySelector("[data-settings-form]")
+  .querySelector(elementSelectors.settings.settingsForm)
   .addEventListener("submit", handleSubmitSettingsForm);
+// =======================================================
 
-document
-  .querySelector("[data-search-form]")
-  .addEventListener("submit", (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const filters = Object.fromEntries(formData);
-    const result = [];
+/* Here I refactored the onSubmit event to be inside a function */
 
-    result.push(
-      books.filter((book) => {
-        const genreMatch =
-          filters.genre === "any" || book.genres.includes(filters.genre);
-
-        return (
-          (filters.title.trim() === "" ||
-            book.title.toLowerCase().includes(filters.title.toLowerCase())) &&
-          (filters.author === "any" || book.author === filters.author) &&
-          genreMatch
-        );
-      })
-    );
-
-    page = 1;
-    matches = result;
-
-    if (result.length < 1) {
-      document
-        .querySelector("[data-list-message]")
-        .classList.add("list__message_show");
-    } else {
-      document
-        .querySelector("[data-list-message]")
-        .classList.remove("list__message_show");
-    }
 /**
- * On click event for list items to open modal
- * @param {Event} event - On click event
+ * Handles submit event of the search form to search for
+ * what was specified
+ * @param {Event} event - Form submit event
  */
-const handleListItemsClick = (event) => {
+const handleSubmitSearchForm = (event) => {
+  event.preventDefault();
+  const formData = new FormData(event.target);
+  const filters = Object.fromEntries(formData);
+  const result = [];
+
+  result.push(
+    books.filter((book) => {
+      const genreMatch =
+        filters.genre === "any" || book.genres.includes(filters.genre);
+
+      return (
+        (filters.title.trim() === "" ||
+          book.title.toLowerCase().includes(filters.title.toLowerCase())) &&
+        (filters.author === "any" || book.author === filters.author) &&
+        genreMatch
+      );
+    })
+  );
+
+  page = 1;
+  matches = result;
+
+  if (result.length < 1) {
+    document
+      .querySelector(elementSelectors.list.listMessage)
+      .classList.add("list__message_show");
+  } else {
+    document
+      .querySelector(elementSelectors.list.listMessage)
+      .classList.remove("list__message_show");
+  }
+
+  document.querySelector(elementSelectors.list.listItems).innerHTML = "";
+  const newItems = document.createDocumentFragment();
+
+  result.slice(0, BOOKS_PER_PAGE).forEach(({ author, id, image, title }) => {
+    const element = document.createElement("button");
+    element.classList = "preview";
+    element.setAttribute("data-preview", id);
+
+    element.innerHTML = `
+          <img
+              class="preview__image"
+              src="${image}"
+          />
+          
+          <div class="preview__info">
+              <h3 class="preview__title">${title}</h3>
+              <div class="preview__author">${authors[author]}</div>
+          </div>
+      `;
+
+    newItems.appendChild(element);
+  });
+
+  document.querySelector(elementSelectors.list.listItems).appendChild(newItems);
+  document.querySelector(elementSelectors.list.listButton).disabled =
+    matches.length - page * BOOKS_PER_PAGE < 1;
+
+  document.querySelector(elementSelectors.list.listButton).innerHTML = `
+      <span>Show more</span>
+      <span class="list__remaining"> (${
+        matches.length - page * BOOKS_PER_PAGE > 0
+          ? matches.length - page * BOOKS_PER_PAGE
+          : 0
+      })</span>
+  `;
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  document.querySelector(elementSelectors.search.searchOverlay).open = false;
+};
+document
+  .querySelector(elementSelectors.search.searchForm)
+  .addEventListener("submit", handleSubmitSearchForm);
+// ========================================================
+
+/*
+ *Here I refactored the code to put the onclick event into a function
+ * and separated the getting of the active book as the business logic from the
+ * updating of the view
+ */
+
+/**
+ * Gets the active book that is selected
+ * @param {*} event - Event that is passed in
+ * @returns {boolean} - If the book is active
+ */
+const getActiveBook = (event) => {
   const pathArray = Array.from(event.path || event.composedPath());
   let active = null;
 
@@ -292,19 +362,38 @@ const handleListItemsClick = (event) => {
     }
   });
 
+  return active;
+};
+
+/**
+ * Updates the active book view
+ * @param {boolean} active - Active book
+ */
+const updateActiveBookView = (active) => {
   if (active) {
-    document.querySelector("[data-list-active]").open = true;
-    document.querySelector("[data-list-blur]").src = active.image;
-    document.querySelector("[data-list-image]").src = active.image;
-    document.querySelector("[data-list-title]").innerText = active.title;
-    document.querySelector("[data-list-subtitle]").innerText = `${
+    toggleOverlay(elementSelectors.list.listActive, true);
+    document.querySelector(elementSelectors.list.listBlur).src = active.image;
+    document.querySelector(elementSelectors.list.listImage).src = active.image;
+    document.querySelector(elementSelectors.list.listTitle).innerText =
+      active.title;
+    document.querySelector(elementSelectors.list.listSubtitle).innerText = `${
       authors[active.author]
     } (${new Date(active.published).getFullYear()})`;
-    document.querySelector("[data-list-description]").innerText =
+    document.querySelector(elementSelectors.list.listDescription).innerText =
       active.description;
   }
 };
 
+/**
+ * On click event for list items to open modal
+ * @param {Event} event - On click event
+ */
+const handleListItemsClick = (event) => {
+  const active = getActiveBook(event);
+  updateActiveBookView(active);
+};
+
 document
-  .querySelector("[data-list-items]")
+  .querySelector(elementSelectors.list.listItems)
   .addEventListener("click", handleListItemsClick);
+// =========================================================
