@@ -6,6 +6,38 @@ import { books, authors, genres, BOOKS_PER_PAGE } from "./src/data.js";
 let page = 1;
 let matches = books;
 
+const elementSelectors = {
+  header: {
+    headerSearch: "[data-header-search]",
+    headerSettings: "[data-header-settings]",
+  },
+  list: {
+    listItems: "[data-list-items]",
+    listButton: "[data-list-button]",
+    listMessage: "[data-list-message]",
+    listClose: "[data-list-close]",
+    listActive: "[data-list-active]",
+    listBlur: "[data-list-blur]",
+    listImage: "[data-list-image]",
+    listTitle: "[data-list-title]",
+    listDescription: "[data-list-description]",
+    listSubtitle: "[data-list-subtitle]",
+  },
+  search: {
+    searchGenres: "[data-search-genres]",
+    searchAuthors: "[data-search-authors]",
+    searchOverlay: "[data-search-overlay]",
+    searchCancel: "[data-search-cancel]",
+    searchForm: "[data-search-form]",
+    searchTitle: "[data-search-title]",
+  },
+  settings: {
+    settingsCancel: "[data-settings-cancel]",
+    settingsOverlay: "[data-settings-overlay]",
+    settingsForm: "[data-settings-form]",
+  },
+};
+
 /**
  * Toggles the overlay based on the state passed in
  * @param {string} selector
