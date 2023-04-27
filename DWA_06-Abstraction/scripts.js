@@ -3,6 +3,8 @@
 // eslint-disable-next-line import/extensions
 import { books, authors, genres, BOOKS_PER_PAGE } from "./src/data.js";
 
+if (!document) throw new Error();
+
 let page = 1;
 let matches = books;
 
@@ -80,8 +82,15 @@ const starting = document.createDocumentFragment();
  * @param {string} props.title - The title of the button.
  * @returns {HTMLElement} The created button element.
  */
-const createButtonElement = ({ image, author, id, authors, title }) => {
+const createButtonElement = ({
+  image,
+  author,
+  id,
+  authors: createButtonElementAuthors,
+  title,
+}) => {
   const element = document.createElement("button");
+  // @ts-ignore
   element.classList = "preview";
   element.setAttribute("data-preview", id);
 
@@ -106,7 +115,9 @@ matches.slice(0, BOOKS_PER_PAGE).forEach(({ author, id, image, title }) => {
     createButtonElement({ author, id, image, title, authors })
   );
 });
-document.querySelector("[data-list-items]").appendChild(starting);
+// @ts-ignore
+// document.querySelector("[data-list-items]").appendChild(starting);
+document.querySelector(elementSelectors.list.listItems).appendChild(starting);
 
 // ================================================
 
@@ -140,7 +151,11 @@ const createOptionElement = (id, name) => {
 Object.entries(genres).forEach((id, name) => {
   genreHtml.appendChild(createOptionElement(id, name));
 });
-document.querySelector("[data-search-genres]").appendChild(genreHtml);
+// @ts-ignore
+// document.querySelector("[data-search-genres]").appendChild(genreHtml);
+document
+  .querySelector(elementSelectors.search.searchGenres)
+  .appendChild(genreHtml);
 
 // =====================================================
 
@@ -150,7 +165,10 @@ const authorsHtml = createOptionHtml("any", "All Authors");
 Object.entries(authors).forEach(([id, name]) => {
   authorsHtml.appendChild(createOptionElement(id, name));
 });
-document.querySelector("[data-search-authors]").appendChild(authorsHtml);
+// @ts-ignore
+document
+  .querySelector(elementSelectors.search.searchAuthors)
+  .appendChild(authorsHtml);
 
 /*
  * Changed this part to use ternary operators
@@ -164,17 +182,22 @@ const dataSettingsTheme = document.querySelector("[data-settings-theme]");
 const colorDark = prefersDarkMode ? "255, 255, 255" : "10, 10, 20";
 const colorLight = prefersDarkMode ? "10, 10, 20" : "255, 255, 255";
 
+// @ts-ignore
 dataSettingsTheme.value = prefersDarkMode ? "night" : "day";
 document.documentElement.style.setProperty("--color-dark", colorDark);
 document.documentElement.style.setProperty("--color-light", colorLight);
 
-document.querySelector("[data-list-button]").innerText = `Show more (${
-  books.length - BOOKS_PER_PAGE
-})`;
-document.querySelector("[data-list-button]").disabled =
+// ==============================================================
+
+// @ts-ignore
+document.querySelector(
+  elementSelectors.list.listButton
+).innerText = `Show more (${books.length - BOOKS_PER_PAGE})`;
+// @ts-ignore
+document.querySelector(elementSelectors.list.listButton).disabled =
   matches.length - page * BOOKS_PER_PAGE > 0;
 
-document.querySelector("[data-list-button]").innerHTML = `
+document.querySelector(elementSelectors.list.listButton).innerHTML = `
     <span>Show more</span>
     <span class="list__remaining"> (${
       matches.length - page * BOOKS_PER_PAGE > 0
@@ -183,14 +206,26 @@ document.querySelector("[data-list-button]").innerHTML = `
     })</span>
 `;
 
-document.querySelector("[data-search-cancel]").addEventListener("click", () => {
-  document.querySelector("[data-search-overlay]").open = false;
-});
+/**
+ * @param {[element: HTMLElement, eventType: string, callback: Function]} props - props
+ */
+const createEventListener = (...args) => {
+  args.forEach((event) => {
+    console.log(event);
+  });
+};
 
+createEventListener([
+  document.querySelector(elementSelectors.search.searchCancel),
+  "click",
+  () => {},
+]);
+
+// Closes search overlay on click of cancel button
 document
-  .querySelector("[data-settings-cancel]")
+  .querySelector(elementSelectors.search.searchCancel)
   .addEventListener("click", () => {
-    document.querySelector("[data-settings-overlay]").open = false;
+    toggleOverlay(elementSelectors.search.searchOverlay, false);
   });
 
 document
@@ -241,7 +276,9 @@ const handleSubmitSettingsForm = (event) => {
     );
   }
 
-  document.querySelector("[data-settings-overlay]").open = false;
+  document.querySelector(
+    elementSelectors.settings.settingsOverlay
+  ).open = false;
 };
 
 document
