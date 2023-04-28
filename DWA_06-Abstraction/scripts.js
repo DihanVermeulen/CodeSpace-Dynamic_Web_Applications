@@ -1,5 +1,3 @@
-// @ts-check
-
 // eslint-disable-next-line import/extensions
 import { books, authors, genres, BOOKS_PER_PAGE } from "./src/data.js";
 // eslint-disable-next-line import/extensions
@@ -63,7 +61,6 @@ matches.slice(0, BOOKS_PER_PAGE).forEach(({ author, id, image, title }) => {
   );
 });
 // @ts-ignore
-// document.querySelector("[data-list-items]").appendChild(starting);
 document.querySelector(elementSelectors.list.listItems).appendChild(starting);
 
 // ================================================
@@ -125,7 +122,9 @@ const prefersDarkMode =
   window.matchMedia &&
   window.matchMedia("(prefers-color-scheme: dark)").matches;
 
-const dataSettingsTheme = document.querySelector("[data-settings-theme]");
+const dataSettingsTheme = document.querySelector(
+  elementSelectors.settings.settingsTheme
+);
 const colorDark = prefersDarkMode ? "255, 255, 255" : "10, 10, 20";
 const colorLight = prefersDarkMode ? "10, 10, 20" : "255, 255, 255";
 
@@ -152,21 +151,6 @@ document.querySelector(elementSelectors.list.listButton).innerHTML = `
         : 0
     })</span>
 `;
-
-/**
- * @param {[element: HTMLElement, eventType: string, callback: Function]} props - props
- */
-const createEventListener = (...args) => {
-  args.forEach((event) => {
-    console.log(event);
-  });
-};
-
-createEventListener([
-  document.querySelector(elementSelectors.search.searchCancel),
-  "click",
-  () => {},
-]);
 
 // Closes search overlay on click of cancel button
 document
@@ -233,19 +217,11 @@ document
 
 /* Here I refactored the onSubmit event to be inside a function */
 
-/**
- * Handles submit event of the search form to search for
- * what was specified
- * @param {Event} event - Form submit event
- */
-const handleSubmitSearchForm = (event) => {
-  event.preventDefault();
-  const formData = new FormData(event.target);
-  const filters = Object.fromEntries(formData);
+const filterBooks = (booksThatWillBeFiltered, filters) => {
   const result = [];
 
   result.push(
-    books.filter((book) => {
+    booksThatWillBeFiltered.filter((book) => {
       const genreMatch =
         filters.genre === "any" || book.genres.includes(filters.genre);
 
@@ -258,10 +234,24 @@ const handleSubmitSearchForm = (event) => {
     })
   );
 
-  page = 1;
-  matches = result;
+  return result;
+};
 
-  if (result.length < 1) {
+/**
+ * Handles submit event of the search form to search for
+ * what was specified
+ * @param {Event} event - Form submit event
+ */
+const handleSubmitSearchForm = (event) => {
+  event.preventDefault();
+  const formData = new FormData(event.target);
+  const filters = Object.fromEntries(formData);
+  const filteredBooks = filterBooks(books, filters);
+
+  page = 1;
+  matches = filteredBooks;
+
+  if (filteredBooks.length < 1) {
     document
       .querySelector(elementSelectors.list.listMessage)
       .classList.add("list__message_show");
@@ -274,12 +264,14 @@ const handleSubmitSearchForm = (event) => {
   document.querySelector(elementSelectors.list.listItems).innerHTML = "";
   const newItems = document.createDocumentFragment();
 
-  result.slice(0, BOOKS_PER_PAGE).forEach(({ author, id, image, title }) => {
-    const element = document.createElement("button");
-    element.classList = "preview";
-    element.setAttribute("data-preview", id);
+  filteredBooks
+    .slice(0, BOOKS_PER_PAGE)
+    .forEach(({ author, id, image, title }) => {
+      const element = document.createElement("button");
+      element.classList = "preview";
+      element.setAttribute("data-preview", id);
 
-    element.innerHTML = `
+      element.innerHTML = `
           <img
               class="preview__image"
               src="${image}"
@@ -291,8 +283,8 @@ const handleSubmitSearchForm = (event) => {
           </div>
       `;
 
-    newItems.appendChild(element);
-  });
+      newItems.appendChild(element);
+    });
 
   document.querySelector(elementSelectors.list.listItems).appendChild(newItems);
   document.querySelector(elementSelectors.list.listButton).disabled =
@@ -323,7 +315,7 @@ document
 
 /**
  * Gets the active book that is selected
- * @param {*} event - Event that is passed in
+ * @param {Event} event - Event that is passed in
  * @returns {boolean} - If the book is active
  */
 const getActiveBook = (event) => {
@@ -352,18 +344,16 @@ const getActiveBook = (event) => {
  * @param {boolean} active - Active book
  */
 const updateActiveBookView = (active) => {
-  if (active) {
-    toggleOverlay(elementSelectors.list.listActive, true);
-    document.querySelector(elementSelectors.list.listBlur).src = active.image;
-    document.querySelector(elementSelectors.list.listImage).src = active.image;
-    document.querySelector(elementSelectors.list.listTitle).innerText =
-      active.title;
-    document.querySelector(elementSelectors.list.listSubtitle).innerText = `${
-      authors[active.author]
-    } (${new Date(active.published).getFullYear()})`;
-    document.querySelector(elementSelectors.list.listDescription).innerText =
-      active.description;
-  }
+  toggleOverlay(elementSelectors.list.listActive, true);
+  document.querySelector(elementSelectors.list.listBlur).src = active.image;
+  document.querySelector(elementSelectors.list.listImage).src = active.image;
+  document.querySelector(elementSelectors.list.listTitle).innerText =
+    active.title;
+  document.querySelector(elementSelectors.list.listSubtitle).innerText = `${
+    authors[active.author]
+  } (${new Date(active.published).getFullYear()})`;
+  document.querySelector(elementSelectors.list.listDescription).innerText =
+    active.description;
 };
 
 /**
@@ -372,7 +362,7 @@ const updateActiveBookView = (active) => {
  */
 const handleListItemsClick = (event) => {
   const active = getActiveBook(event);
-  updateActiveBookView(active);
+  if (active) updateActiveBookView(active);
 };
 
 document

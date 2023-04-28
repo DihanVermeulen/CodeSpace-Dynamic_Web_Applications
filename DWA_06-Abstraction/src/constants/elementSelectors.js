@@ -42,6 +42,7 @@ const elementSelectors = {
     settingsCancel: "[data-settings-cancel]",
     settingsOverlay: "[data-settings-overlay]",
     settingsForm: "[data-settings-form]",
+    settingsTheme: "[data-settings-theme]",
   },
 };
 
