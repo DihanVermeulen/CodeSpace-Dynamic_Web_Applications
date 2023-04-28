@@ -180,20 +180,20 @@ document
 document
   .querySelector(elementSelectors.header.headerSearch)
   .addEventListener("click", () => {
-    document.querySelector(elementSelectors.search.searchOverlay).open = true;
+    toggleOverlay(elementSelectors.search.searchOverlay, true);
     document.querySelector(elementSelectors.search.searchTitle).focus();
   });
 
 document
   .querySelector(elementSelectors.header.headerSettings)
   .addEventListener("click", () => {
-    document.querySelector(elementSelectors.search.searchOverlay).open = true;
+    toggleOverlay(elementSelectors.search.searchOverlay, true);
   });
 
 document
   .querySelector(elementSelectors.list.listClose)
   .addEventListener("click", () => {
-    document.querySelector(elementSelectors.list.listActive).open = false;
+    toggleOverlay(elementSelectors.list.listActive, false);
   });
 
 /* Here I refactored the onSubmit event to be inside of a function */
@@ -219,9 +219,7 @@ const handleSubmitSettingsForm = (event) => {
     );
   }
 
-  document.querySelector(
-    elementSelectors.settings.settingsOverlay
-  ).open = false;
+  toggleOverlay(elementSelectors.settings.settingsOverlay, false);
 };
 
 document
