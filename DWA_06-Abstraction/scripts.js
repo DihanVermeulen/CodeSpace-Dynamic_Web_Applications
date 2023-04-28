@@ -125,7 +125,9 @@ const prefersDarkMode =
   window.matchMedia &&
   window.matchMedia("(prefers-color-scheme: dark)").matches;
 
-const dataSettingsTheme = document.querySelector("[data-settings-theme]");
+const dataSettingsTheme = document.querySelector(
+  elementSelectors.settings.settingsTheme
+);
 const colorDark = prefersDarkMode ? "255, 255, 255" : "10, 10, 20";
 const colorLight = prefersDarkMode ? "10, 10, 20" : "255, 255, 255";
 
