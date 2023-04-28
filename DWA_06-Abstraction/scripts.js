@@ -191,7 +191,7 @@ document
 document
   .querySelector(elementSelectors.header.headerSettings)
   .addEventListener("click", () => {
-    toggleOverlay(elementSelectors.search.searchOverlay, true);
+    toggleOverlay(elementSelectors.settings.settingsOverlay, true);
   });
 
 document
