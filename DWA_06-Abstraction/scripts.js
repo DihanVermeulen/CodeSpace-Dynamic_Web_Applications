@@ -2,6 +2,10 @@
 
 // eslint-disable-next-line import/extensions
 import { books, authors, genres, BOOKS_PER_PAGE } from "./src/data.js";
+// eslint-disable-next-line import/extensions
+import toggleOverlay from "./src/overlay.js";
+// eslint-disable-next-line import/extensions
+import elementSelectors from "./src/constants/elementSelectors.js";
 
 if (!document) throw new Error();
 
