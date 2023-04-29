@@ -8,4 +8,9 @@ plugins: ["prettier"]
 parserOptions:
   ecmaVersion: 14
   sourceType: module
-rules: { "prettier/prettier": "error", "no-console": "off" }
+rules:
+  {
+    "prettier/prettier": "error",
+    "no-console": "off",
+    "import/extensions": "off",
+  }
