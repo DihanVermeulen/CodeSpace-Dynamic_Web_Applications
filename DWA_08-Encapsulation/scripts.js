@@ -10,44 +10,6 @@ if (!document) throw new Error();
 const starting = document.createDocumentFragment();
 
 
-/* Refactored this part to create the option Html inside of a function */
-const createOptionHtml = (value, innerText) => {
-  const Html = document.createDocumentFragment();
-  const firstElement = document.createElement("option");
-  firstElement.value = value;
-  firstElement.innerText = innerText;
-  Html.appendChild(firstElement);
-
-  return Html;
-};
-
-const genreHtml = createOptionHtml("any", "All Genres");
-
-/**
- * Creates an option element
- * @param {string} id - ID of option
- * @param {string} name - Name of option
- * @returns {HTMLOptionElement} - Option element
- */
-const createOptionElement = (id, name) => {
-  const element = document.createElement("option");
-  element.value = id;
-  element.innerText = name;
-  return element;
-};
-
-// Creates option element and appends to search-genres list
-Object.entries(genres).forEach((id, name) => {
-  genreHtml.appendChild(createOptionElement(id, name));
-});
-// @ts-ignore
-// document.querySelector("[data-search-genres]").appendChild(genreHtml);
-document
-  .querySelector(elementSelectors.search.searchGenres)
-  .appendChild(genreHtml);
-
-// =====================================================
-
 const authorsHtml = createOptionHtml("any", "All Authors");
 
 // Creates option element and appends to search-authors list
