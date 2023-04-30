@@ -9,59 +9,6 @@ if (!document) throw new Error();
 
 const starting = document.createDocumentFragment();
 
-/*
- * Here I refactored this piece of code that creates a button inside of a function so
- * that it can be reused
- */
-
-/**
- * Creates a button element with the specified properties.
- *
- * @param {Object} props - The properties of the button element.
- * @param {string} props.image - The image source URL of the button.
- * @param {string} props.author - The index of the author in the authors array.
- * @param {string} props.id - The ID of the button.
- * @param {Object} props.authors - An object containing the names of the authors.
- * @param {string} props.title - The title of the button.
- * @returns {HTMLElement} The created button element.
- */
-const createButtonElement = ({
-  image,
-  author,
-  id,
-  authors: createButtonElementAuthors,
-  title,
-}) => {
-  const element = document.createElement("button");
-  // @ts-ignore
-  element.classList = "preview";
-  element.setAttribute("data-preview", id);
-
-  element.innerHTML = `
-    <img
-      class="preview__image"
-      src="${image}"
-    />
-
-    <div class="preview__info">
-      <h3 class="preview__title">${title}</h3>
-      <div class="preview__author">${createButtonElementAuthors[author]}</div>
-    </div>
-  `;
-
-  return element;
-};
-
-// Creates button elements and appends to list-items
-matches.slice(0, BOOKS_PER_PAGE).forEach(({ author, id, image, title }) => {
-  starting.appendChild(
-    createButtonElement({ author, id, image, title, authors })
-  );
-});
-// @ts-ignore
-document.querySelector(elementSelectors.list.listItems).appendChild(starting);
-
-// ================================================
 
 /* Refactored this part to create the option Html inside of a function */
 const createOptionHtml = (value, innerText) => {
