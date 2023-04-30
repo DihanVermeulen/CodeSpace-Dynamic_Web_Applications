@@ -7,8 +7,6 @@ import elementSelectors from "./src/constants/elementSelectors.js";
 
 if (!document) throw new Error();
 
-let page = 1;
-let matches = books;
 const starting = document.createDocumentFragment();
 
 /*
