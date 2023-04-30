@@ -33,23 +33,6 @@ document.documentElement.style.setProperty("--color-light", colorLight);
 
 // ==============================================================
 
-// @ts-ignore
-document.querySelector(
-  elementSelectors.list.listButton
-).innerText = `Show more (${books.length - BOOKS_PER_PAGE})`;
-// @ts-ignore
-document.querySelector(elementSelectors.list.listButton).disabled =
-  matches.length - page * BOOKS_PER_PAGE > 0;
-
-document.querySelector(elementSelectors.list.listButton).innerHTML = `
-    <span>Show more</span>
-    <span class="list__remaining"> (${
-      matches.length - page * BOOKS_PER_PAGE > 0
-        ? matches.length - page * BOOKS_PER_PAGE
-        : 0
-    })</span>
-`;
-
 // Closes search overlay on click of cancel button
 document
   .querySelector(elementSelectors.search.searchCancel)
