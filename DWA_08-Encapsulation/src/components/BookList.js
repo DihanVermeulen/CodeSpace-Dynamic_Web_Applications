@@ -1,6 +1,7 @@
 import { BOOKS_PER_PAGE, authors, books } from "../data.js";
 import elementSelectors from "../constants/elementSelectors.js";
 import toggleOverlay from "../helpers/overlay.js";
+import state from "../state.js";
 
 /**
  * Creates a button element with the specified properties.
@@ -121,6 +122,24 @@ const createBookListHtml = (booksToDisplay) => {
   document
     .querySelector(elementSelectors.list.listItems)
     .addEventListener("click", handleListItemsClick);
+
+  // @ts-ignore
+  document.querySelector(elementSelectors.list.listButton).disabled =
+    state.getBooks.length - state.getPage * BOOKS_PER_PAGE > 0;
+
+  // @ts-ignore
+  document.querySelector(
+    elementSelectors.list.listButton
+  ).innerText = `Show more (${books.length - BOOKS_PER_PAGE})`;
+
+  document.querySelector(elementSelectors.list.listButton).innerHTML = `
+    <span>Show more</span>
+    <span class="list__remaining"> (${
+      state.getBooks.length - state.getPage * BOOKS_PER_PAGE > 0
+        ? state.getBooks.length - state.getPage * BOOKS_PER_PAGE
+        : 0
+    })</span>
+`;
 };
 
 export default createBookListHtml;
