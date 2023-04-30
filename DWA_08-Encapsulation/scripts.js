@@ -6,11 +6,11 @@ import toggleOverlay from "./src/overlay.js";
 import elementSelectors from "./src/constants/elementSelectors.js";
 
 if (!document) throw new Error();
+(function setup() {
+  const bookList = createBookListHtml(state.getBooks);
 
-const starting = document.createDocumentFragment();
-const bookList = createBookListHtml(state.getBooks);
-
-const search = createSearchHtml(genres, authors);
+  const search = createSearchHtml(genres, authors);
+})();
 
 /*
  * Changed this part to use ternary operators
