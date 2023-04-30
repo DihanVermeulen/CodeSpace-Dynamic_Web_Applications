@@ -33,13 +33,6 @@ document.documentElement.style.setProperty("--color-light", colorLight);
 
 // ==============================================================
 
-// Closes search overlay on click of cancel button
-document
-  .querySelector(elementSelectors.search.searchCancel)
-  .addEventListener("click", () => {
-    toggleOverlay(elementSelectors.search.searchOverlay, false);
-  });
-
 document
   .querySelector(elementSelectors.settings.settingsCancel)
   .addEventListener("click", () => {
