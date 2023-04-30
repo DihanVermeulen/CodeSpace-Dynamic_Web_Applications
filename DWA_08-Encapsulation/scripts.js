@@ -10,17 +10,6 @@ if (!document) throw new Error();
 const starting = document.createDocumentFragment();
 
 
-const authorsHtml = createOptionHtml("any", "All Authors");
-
-// Creates option element and appends to search-authors list
-Object.entries(authors).forEach(([id, name]) => {
-  authorsHtml.appendChild(createOptionElement(id, name));
-});
-// @ts-ignore
-document
-  .querySelector(elementSelectors.search.searchAuthors)
-  .appendChild(authorsHtml);
-
 /*
  * Changed this part to use ternary operators
  * Changes colour theme of app
