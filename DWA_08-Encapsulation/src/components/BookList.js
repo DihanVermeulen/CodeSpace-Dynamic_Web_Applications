@@ -125,7 +125,7 @@ const createBookListHtml = (booksToDisplay) => {
 
   // @ts-ignore
   document.querySelector(elementSelectors.list.listButton).disabled =
-    state.getBooks.length - state.getPage * BOOKS_PER_PAGE > 0;
+    state.getBooks.length - state.getPage * BOOKS_PER_PAGE === 0;
 
   // @ts-ignore
   document.querySelector(
@@ -140,6 +140,12 @@ const createBookListHtml = (booksToDisplay) => {
         : 0
     })</span>
 `;
+
+  document
+    .querySelector(elementSelectors.list.listClose)
+    .addEventListener("click", () => {
+      toggleOverlay(elementSelectors.list.listActive, false);
+    });
 };
 
 export default createBookListHtml;
