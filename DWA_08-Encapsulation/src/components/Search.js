@@ -3,6 +3,7 @@ import elementSelectors from "../constants/elementSelectors.js";
 import toggleOverlay from "../helpers/overlay.js";
 import state from "../state.js";
 import { BOOKS_PER_PAGE, authors as dataAuthors } from "../data.js";
+import { createBookListButtonElement } from "./BookList.js";
 
 const filterBooks = (booksThatWillBeFiltered, filters) => {
   const result = [];
@@ -54,23 +55,15 @@ const handleSubmitSearchForm = (event) => {
   filteredBooks
     .slice(0, BOOKS_PER_PAGE)
     .forEach(({ author, id, image, title }) => {
-      const element = document.createElement("button");
-      element.classList = "preview";
-      element.setAttribute("data-preview", id);
-
-      element.innerHTML = `
-          <img
-              class="preview__image"
-              src="${image}"
-          />
-          
-          <div class="preview__info">
-              <h3 class="preview__title">${title}</h3>
-              <div class="preview__author">${dataAuthors[author]}</div>
-          </div>
-      `;
-
-      newItems.appendChild(element);
+      newItems.appendChild(
+        createBookListButtonElement({
+          image,
+          author,
+          id,
+          authorsObject: dataAuthors,
+          title,
+        })
+      );
     });
 
   document.querySelector(elementSelectors.list.listItems).appendChild(newItems);
@@ -87,7 +80,7 @@ const handleSubmitSearchForm = (event) => {
   `;
 
   window.scrollTo({ top: 0, behavior: "smooth" });
-  document.querySelector(elementSelectors.search.searchOverlay).open = false;
+  toggleOverlay(elementSelectors.search.searchOverlay, false);
 };
 
 const createSearchHtml = (genres, authors) => {
