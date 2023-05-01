@@ -111,74 +111,8 @@ const filterBooks = (booksThatWillBeFiltered, filters) => {
   return result;
 };
 
-/**
- * Handles submit event of the search form to search for
- * what was specified
- * @param {Event} event - Form submit event
- */
-const handleSubmitSearchForm = (event) => {
-  event.preventDefault();
-  const formData = new FormData(event.target);
-  const filters = Object.fromEntries(formData);
-  const filteredBooks = filterBooks(books, filters);
 
-  page = 1;
-  matches = filteredBooks;
 
-  if (filteredBooks.length < 1) {
-    document
-      .querySelector(elementSelectors.list.listMessage)
-      .classList.add("list__message_show");
-  } else {
-    document
-      .querySelector(elementSelectors.list.listMessage)
-      .classList.remove("list__message_show");
-  }
-
-  document.querySelector(elementSelectors.list.listItems).innerHTML = "";
-  const newItems = document.createDocumentFragment();
-
-  filteredBooks
-    .slice(0, BOOKS_PER_PAGE)
-    .forEach(({ author, id, image, title }) => {
-      const element = document.createElement("button");
-      element.classList = "preview";
-      element.setAttribute("data-preview", id);
-
-      element.innerHTML = `
-          <img
-              class="preview__image"
-              src="${image}"
-          />
-          
-          <div class="preview__info">
-              <h3 class="preview__title">${title}</h3>
-              <div class="preview__author">${authors[author]}</div>
-          </div>
-      `;
-
-      newItems.appendChild(element);
-    });
-
-  document.querySelector(elementSelectors.list.listItems).appendChild(newItems);
-  document.querySelector(elementSelectors.list.listButton).disabled =
-    matches.length - page * BOOKS_PER_PAGE < 1;
-
-  document.querySelector(elementSelectors.list.listButton).innerHTML = `
-      <span>Show more</span>
-      <span class="list__remaining"> (${
-        matches.length - page * BOOKS_PER_PAGE > 0
-          ? matches.length - page * BOOKS_PER_PAGE
-          : 0
-      })</span>
-  `;
-
-  window.scrollTo({ top: 0, behavior: "smooth" });
-  document.querySelector(elementSelectors.search.searchOverlay).open = false;
-};
-document
-  .querySelector(elementSelectors.search.searchForm)
-  .addEventListener("submit", handleSubmitSearchForm);
 // ========================================================
 
 /*
