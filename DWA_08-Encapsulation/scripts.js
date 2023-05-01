@@ -31,12 +31,6 @@ document
     toggleOverlay(elementSelectors.settings.settingsOverlay, true);
   });
 
-document
-  .querySelector(elementSelectors.list.listClose)
-  .addEventListener("click", () => {
-    toggleOverlay(elementSelectors.list.listActive, false);
-  });
-
 /* Here I refactored the onSubmit event to be inside of a function */
 
 /**
