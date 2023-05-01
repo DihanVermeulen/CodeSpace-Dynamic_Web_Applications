@@ -15,7 +15,7 @@ import state from "../state.js";
  * @param {string} props.author - The author of the book.
  * @returns {HTMLElement} The created button element.
  */
-const createBookListButtonElement = ({
+export const createBookListButtonElement = ({
   image,
   author,
   id,
