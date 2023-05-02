@@ -1,0 +1,12 @@
+{
+  "name": "dwa_9-polymorphism",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "dev": "live-server ./",
+    "test": ""
+  },
+  "author": "",
+  "license": "ISC"
+}
