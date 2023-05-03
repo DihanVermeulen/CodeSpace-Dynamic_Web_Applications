@@ -1,4 +1,4 @@
-# Abstraction
+# Encapsulation
 
 This DWA_08 challenge challenges our abilities to use encapsulation in our code, to make it less complex and more manageable.
 
