@@ -232,13 +232,11 @@ customElements.define(
 
     constructor() {
       super();
-      console.log(this.#open);
       const { content } = template;
       this.#inner.appendChild(content.cloneNode(true));
     }
 
     connectedCallback() {
-      console.log(this.#inner);
       this.#elements = {
         title: this.#inner.querySelector("[data-list-title]"),
         dialog: this.#inner.querySelector("[data-list-active]"),
