@@ -1,6 +1,5 @@
 import { BOOKS_PER_PAGE, authors, books } from "../data.js";
 import elementSelectors from "../constants/elementSelectors.js";
-import toggleOverlay from "../helpers/overlay.js";
 import state from "../state.js";
 
 /**
@@ -86,7 +85,7 @@ const getActiveBook = (event) => {
       active = result;
     }
   });
-
+  console.log(active);
   return active;
 };
 
@@ -95,16 +94,15 @@ const getActiveBook = (event) => {
  * @param {boolean} active - Active book
  */
 const updateActiveBookView = (active) => {
-  toggleOverlay(elementSelectors.list.listActive, true);
-  document.querySelector(elementSelectors.list.listBlur).src = active.image;
-  document.querySelector(elementSelectors.list.listImage).src = active.image;
-  document.querySelector(elementSelectors.list.listTitle).innerText =
-    active.title;
-  document.querySelector(elementSelectors.list.listSubtitle).innerText = `${
+  document.querySelector(elementSelectors.list.listActive).openDialog();
+  document.querySelector(elementSelectors.list.listActive).title = active.title;
+  document.querySelector(elementSelectors.list.listActive).image = active.image;
+  document.querySelector(elementSelectors.list.listActive).description =
+    active.description;
+  document.querySelector(elementSelectors.list.listActive).subtitle = `${
     authors[active.author]
   } (${new Date(active.published).getFullYear()})`;
-  document.querySelector(elementSelectors.list.listDescription).innerText =
-    active.description;
+  document.querySelector(elementSelectors.list.listActive).blur = active.image;
 };
 
 const createBookListHtml = (booksToDisplay) => {
@@ -141,11 +139,11 @@ const createBookListHtml = (booksToDisplay) => {
     })</span>
 `;
 
-  document
-    .querySelector(elementSelectors.list.listClose)
-    .addEventListener("click", () => {
-      toggleOverlay(elementSelectors.list.listActive, false);
-    });
+  // document
+  //   .querySelector(elementSelectors.list.listClose)
+  //   .addEventListener("click", () => {
+  //     toggleOverlay(elementSelectors.list.listActive, false);
+  //   });
 };
 
 export default createBookListHtml;
