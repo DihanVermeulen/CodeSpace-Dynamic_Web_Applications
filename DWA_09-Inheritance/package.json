@@ -4,7 +4,7 @@
   "description": "Inheritance challenge in CodeSpace Academy DWA module",
   "main": "scripts.js",
   "scripts": {
-    "start": "live-server --port=5000",
+    "dev": "live-server --port=5000",
     "lint": "eslint **/*.js",
     "lint:fix": "eslint --fix **/*.js"
   },
