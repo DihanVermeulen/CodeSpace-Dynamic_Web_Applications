@@ -1,6 +1,6 @@
 # Abstraction
 
-This DWA_06 challenge challenges our abilities to use abstraction in our code, to make it less complex and more manageable.
+This DWA_08 challenge challenges our abilities to use encapsulation in our code, to make it less complex and more manageable.
 
 ## Run locally
 
