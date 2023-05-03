@@ -1,0 +1,22 @@
+{
+  "name": "dwa_09-inheritance",
+  "version": "1.0.0",
+  "description": "Inheritance challenge in CodeSpace Academy DWA module",
+  "main": "scripts.js",
+  "scripts": {
+    "dev": "live-server --port=5000",
+    "lint": "eslint **/*.js",
+    "lint:fix": "eslint --fix **/*.js"
+  },
+  "author": "Dihan Vermeulen",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.39.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.8"
+  }
+}
