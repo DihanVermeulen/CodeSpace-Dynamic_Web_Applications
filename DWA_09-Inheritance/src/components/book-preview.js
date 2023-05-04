@@ -197,7 +197,6 @@ customElements.define(
     /**
      * @type {boolean} - Whether dialog is open or closed
      */
-    // #open = this.getAttribute("open") !== null;
     #open = false;
 
     /**
@@ -262,7 +261,6 @@ customElements.define(
     }
 
     closeDialog() {
-      //   this.#elements.dialog.open = false;
       this.#elements.dialog.close();
     }
 

@@ -94,15 +94,16 @@ const getActiveBook = (event) => {
  * @param {boolean} active - Active book
  */
 const updateActiveBookView = (active) => {
-  document.querySelector(elementSelectors.list.listActive).openDialog();
-  document.querySelector(elementSelectors.list.listActive).title = active.title;
-  document.querySelector(elementSelectors.list.listActive).image = active.image;
-  document.querySelector(elementSelectors.list.listActive).description =
-    active.description;
-  document.querySelector(elementSelectors.list.listActive).subtitle = `${
-    authors[active.author]
-  } (${new Date(active.published).getFullYear()})`;
-  document.querySelector(elementSelectors.list.listActive).blur = active.image;
+  const dialog = document.querySelector(elementSelectors.list.listActive);
+
+  dialog.title = active.title;
+  dialog.image = active.image;
+  dialog.description = active.description;
+  dialog.subtitle = `${authors[active.author]} (${new Date(
+    active.published
+  ).getFullYear()})`;
+  dialog.blur = active.image;
+  dialog.openDialog();
 };
 
 const createBookListHtml = (booksToDisplay) => {
