@@ -110,3 +110,19 @@ const doesNameContainTheLetterS = names.map((name) => {
 });
 
 console.log(doesNameContainTheLetterS);
+
+/**
+ * Using only reduce, turn the above into an object that indicates the province of an individual
+ */
+
+console.log("===================");
+
+const nameWithProvinceObject = names.reduce(
+  (accumulator, currentValue, currentIndex) => {
+    accumulator[currentValue] = provinces[currentIndex];
+    return accumulator;
+  },
+  {}
+);
+
+console.log(nameWithProvinceObject);
