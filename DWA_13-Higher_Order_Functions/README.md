@@ -4,10 +4,5 @@ This DWA_13 challenge challenges our abilities to use higher order functions in 
 
 ## Run locally
 
-```bash
-node main.js
-```
-
-## Dependencies
-
-- Node JS
+To run install the [live server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) extension on VS code, then
+right click on the index.html file and run the live server.
