@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "lit": "^2.7.4"
+  },
+  "name": "dwa_14-state_machines",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "dev": ""
+  },
+  "author": "Dihan Vermeulen",
+  "license": "ISC",
+  "description": ""
+}
